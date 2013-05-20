@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_root"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:padding="10dp" >
+
+    <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_gravity="center">
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_shopList_name_textView" android:layout_row="0" android:layout_column="0"
+                android:hint="@string/new_shopList_name_hint"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_shopList_budget_textView" android:layout_row="1" android:layout_column="0"
+                android:inputType="numberDecimal"
+                android:hint="@string/new_shopList_budget_hint"/>
+    </GridLayout>
+</LinearLayout>
