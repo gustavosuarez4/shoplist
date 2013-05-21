@@ -18,7 +18,7 @@ import com.gusjungle.shoplist.data.ShopListApplicationData;
 
 public class MainActivity extends Activity {
 
-    private View promptsView;
+    private View promptView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +71,10 @@ public class MainActivity extends Activity {
 
     private void addNewShopList() {
 
-        promptsView = getLayoutInflater().inflate(R.layout.prompt_add_new_shop_list, null);
+        promptView = getLayoutInflater().inflate(R.layout.prompt_add_new_shop_list, null);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setView(promptsView)
+                .setView(promptView)
                 .setPositiveButton(getString(R.string.add_new_shopList), AddNewShopListListener)
                 .setNegativeButton(getString(R.string.cancel), NavigationUtils.DialogCancelActionListener)
                 // TODO: add support for detailed addition using .setNeutralButton()
@@ -90,8 +90,8 @@ public class MainActivity extends Activity {
 
             ShopListApplicationData shopListApplicationData = ShopListApplication.getShopListApplicationData();
 
-            EditText newShopListNameTextView = (EditText) promptsView.findViewById(R.id.new_shopList_name_textView);
-            EditText newShopListBudgetTextView = (EditText) promptsView.findViewById(R.id.new_shopList_budget_textView);
+            EditText newShopListNameTextView = (EditText) promptView.findViewById(R.id.new_shopList_name_textView);
+            EditText newShopListBudgetTextView = (EditText) promptView.findViewById(R.id.new_shopList_budget_textView);
 
             String newShopListName = newShopListNameTextView.getText().toString();
             Double newShopListBudget = null;

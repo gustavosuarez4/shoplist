@@ -3,23 +3,28 @@ package com.gusjungle.shoplist.activities;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import com.gusjungle.shoplist.R;
 import com.gusjungle.shoplist.ShopListApplication;
 import com.gusjungle.shoplist.adapters.ShopListAdapter;
 import com.gusjungle.shoplist.data.ShopList;
 import com.gusjungle.shoplist.data.ShopListApplicationData;
+import com.gusjungle.shoplist.data.ShopListElement;
 import com.gusjungle.shoplist.utils.NavigationUtils;
 
 /**
- * Created by Gustavo on 5/19/13.
+ * @author Gustavo on 5/19/13 9:12 PM
  */
 public class ShopListActivity extends Activity {
 
     private ShopList shopList;
+    private View promptView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,12 @@ public class ShopListActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.shop_list, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -65,16 +76,41 @@ public class ShopListActivity extends Activity {
     }
 
     private void addNewShopListElement() {
-//        promptsView = getLayoutInflater().inflate(R.layout.prompt_add_new_shop_list, null);
-//
-//        AlertDialog alertDialog = new AlertDialog.Builder(this)
-//                .setView(promptsView)
-//                .setPositiveButton(getString(R.string.add_new_shopList), AddNewShopListListener)
-//                .setNegativeButton(getString(R.string.cancel), NavigationUtils.DialogCancelActionListener)
-//                        // TODO: add support for detailed addition using .setNeutralButton()
-//                .create();
-//
-//        alertDialog.show();
+
+        promptView = getLayoutInflater().inflate(R.layout.prompt_add_new_shop_list_element, null);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setView(promptView)
+                .setPositiveButton(getString(R.string.add_new_shopList_element), AddNewShopListElementListener)
+                .setNegativeButton(getString(R.string.cancel), NavigationUtils.DialogCancelActionListener)
+                // TODO: add support for detailed addition using .setNeutralButton()
+                .create();
+
+        alertDialog.show();
     }
 
+    private DialogInterface.OnClickListener AddNewShopListElementListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+            EditText newShopListElementNameTextView = (EditText) promptView.findViewById(R.id.new_shop_list_element_name);
+            EditText newShopListElementPriceTextView = (EditText) promptView.findViewById(R.id.new_shop_list_element_price);
+
+            String newShopListElementName = newShopListElementNameTextView.getText().toString();
+            Double newShopListElementPrice = null;
+
+            try {
+                newShopListElementPrice = Double.parseDouble(newShopListElementPriceTextView.getText().toString());
+            } catch (NumberFormatException e) { }
+
+            // TODO: validate shopListElementName
+            // TODO: validate shopListElementPrice
+
+            ShopListElement shopListElement = new ShopListElement();
+            shopListElement.setName(newShopListElementName);
+            shopListElement.setPrice(newShopListElementPrice);
+
+            shopList.getElements().add(shopListElement);
+        }
+    };
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Gustavo on 5/19/13.
+ * @author Gustavo on 5/19/13 9:10 PM
  */
 public class ShopList implements Serializable {
 

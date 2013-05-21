@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class ShopListElement implements Serializable {
 
     private String name;
-    private int quantity;
     private double price;
+    private int quantity = 1;
     private boolean taxable = true;
 
     public String getName() {
@@ -20,20 +20,20 @@ public class ShopListElement implements Serializable {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public boolean isTaxable() {

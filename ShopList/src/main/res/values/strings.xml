@@ -12,6 +12,7 @@
     <string name="new_shopList_name_hint">List Name</string>
     <string name="add_new_shopList">Add</string>
     <string name="cancel">Cancel</string>
-    <string name="action_new_shopListElement">Add element</string>
+    <string name="action_new_shopListElement">Add element</string><string name="new_shop_list_element_quantity_hint">Quantity</string><string name="new_shop_list_element_price_hint">Price</string><string name="new_shop_list_element_name">Name</string>
+    <string name="add_new_shopList_element">Add</string>
 
 </resources>

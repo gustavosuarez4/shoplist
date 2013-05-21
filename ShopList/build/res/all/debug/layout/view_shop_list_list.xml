@@ -12,7 +12,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:id="@+id/shopListElement_name_label"/>
+            android:id="@+id/shopList_name_label"/>
 
     <TextView
             android:layout_width="wrap_content"

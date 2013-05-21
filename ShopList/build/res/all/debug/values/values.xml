@@ -11,11 +11,15 @@
     <string name="add_new_element">Add new shopping item</string>
     <string name="add_new_element_button">Add</string>
     <string name="add_new_shopList">Add</string>
+    <string name="add_new_shopList_element">Add</string>
     <string name="app_name">ShopList</string>
     <string name="cancel">Cancel</string>
     <string name="element_detail_title">Large Text</string>
     <string name="new_shopList_budget_hint">Budget</string>
     <string name="new_shopList_name_hint">List Name</string>
+    <string name="new_shop_list_element_name">Name</string>
+    <string name="new_shop_list_element_price_hint">Price</string>
+    <string name="new_shop_list_element_quantity_hint">Quantity</string>
 
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
