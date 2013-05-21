@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import com.gusjungle.shoplist.R;
 import com.gusjungle.shoplist.data.ShopListElement;
@@ -14,7 +13,7 @@ import com.gusjungle.shoplist.data.ShopListElement;
 import java.util.List;
 
 /**
- * Created by Gustavo on 5/19/13.
+ * @author Gustavo on 5/19/13 10:36 PM
  */
 public class ShopListAdapter extends ArrayAdapter<ShopListElement> {
 
@@ -40,8 +39,8 @@ public class ShopListAdapter extends ArrayAdapter<ShopListElement> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ShopListHolder();
-            holder.shopListElementName = (TextView) row.findViewById(R.id.shopListElement_name_label);
-            holder.shopListElementPrice = (NumberPicker) row.findViewById(R.id.shopListElement_price_numberPicker);
+            holder.shopListElementName = (TextView) row.findViewById(R.id.shop_list_element_name_label);
+            holder.shopListElementPrice = (TextView) row.findViewById(R.id.shop_list_element_price_label);
 
             row.setTag(holder);
         }
@@ -53,7 +52,7 @@ public class ShopListAdapter extends ArrayAdapter<ShopListElement> {
         ShopListElement shopListElement = data.get(position);
 
         holder.shopListElementName.setText(shopListElement.getName());
-        holder.shopListElementPrice.setValue((int) shopListElement.getPrice());
+        holder.shopListElementPrice.setText("" + shopListElement.getPrice());
 
         return row;
     }
@@ -61,6 +60,6 @@ public class ShopListAdapter extends ArrayAdapter<ShopListElement> {
     private static class ShopListHolder
     {
         TextView shopListElementName;
-        NumberPicker shopListElementPrice;
+        TextView shopListElementPrice;
     }
 }

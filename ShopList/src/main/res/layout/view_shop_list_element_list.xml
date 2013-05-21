@@ -12,14 +12,15 @@
             android:paddingLeft="10dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:id="@+id/shopListElement_name_label"/>
-
-    <NumberPicker
+            android:id="@+id/shop_list_element_name_label"/>
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:paddingRight="10dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-            android:paddingRight="10dp"
-            android:id="@+id/shopListElement_price_numberPicker"/>
+            android:id="@+id/shop_list_element_price_label"
+            android:layout_alignParentRight="true" />
+
 </RelativeLayout>
