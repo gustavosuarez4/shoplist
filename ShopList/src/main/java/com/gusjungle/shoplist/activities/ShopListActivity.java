@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.gusjungle.shoplist.R;
 import com.gusjungle.shoplist.ShopListApplication;
 import com.gusjungle.shoplist.adapters.ShopListAdapter;
@@ -25,6 +26,7 @@ public class ShopListActivity extends Activity {
 
     private ShopList shopList;
     private View promptView;
+    private TextView availableBudgetTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,13 @@ public class ShopListActivity extends Activity {
         //adds back button on activity icon
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //sets budget on small header text
+        TextView availableBudgetSmallTextView = (TextView) findViewById(R.id.shop_list_available_budget_small);
+        availableBudgetSmallTextView.setText(availableBudgetSmallTextView.getText().toString() + (shopList != null ? shopList.getBudget() : 0));
+
+        availableBudgetTextView = (TextView) findViewById(R.id.shop_list_available_budget_value);
+        setAvailableBudget();
 
         //changes the activity title to the name of the list
         String shopListName = this.shopList.getName();
@@ -73,6 +82,29 @@ public class ShopListActivity extends Activity {
                 break;
         }
         return true;
+    }
+
+    private void setAvailableBudget() {
+        if(shopList == null) {
+            availableBudgetTextView.setText("0");
+            return;
+        }
+
+        if(shopList.getElements() == null || shopList.getElements().size() == 0) {
+            availableBudgetTextView.setText("" + shopList.getBudget());
+            return;
+        }
+
+        double availableBudget = shopList.getBudget();
+        for(ShopListElement elem : shopList.getElements()) {
+            availableBudget -= elem.getPrice();
+        }
+
+        availableBudgetTextView.setText("" + availableBudget);
+
+        if(availableBudget < 0) {
+            availableBudgetTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        }
     }
 
     private void addNewShopListElement() {
@@ -111,6 +143,7 @@ public class ShopListActivity extends Activity {
             shopListElement.setPrice(newShopListElementPrice);
 
             shopList.getElements().add(shopListElement);
+            setAvailableBudget();
         }
     };
 }
