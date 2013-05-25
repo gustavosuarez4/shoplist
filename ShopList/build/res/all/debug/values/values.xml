@@ -24,6 +24,8 @@
     <string name="new_shop_list_element_quantity_hint">Quantity</string>
     <string name="shop_list_available_budget">Available Budget</string>
     <string name="shop_list_available_budget_small">Budget:</string>
+    <string name="shop_list_quantity_small">Items:</string>
+    <string name="shop_list_total">Total</string>
 
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

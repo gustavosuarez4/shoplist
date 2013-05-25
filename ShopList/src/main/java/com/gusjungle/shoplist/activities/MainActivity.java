@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
             shopListsListAdapter = new ShopListsListAdapter(this, R.layout.view_shop_list_list, shopListApplicationData.getShopLists());
             shopListsListView.setAdapter(shopListsListAdapter);
         }
-
+        getApplicationInfo();
         //Button addElementButton = (Button) findViewById(R.id.addElementButton);
         //addElementButton.setOnClickListener(addElementButtonOnClickListener);
     }

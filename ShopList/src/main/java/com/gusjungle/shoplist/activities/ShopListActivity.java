@@ -27,6 +27,8 @@ public class ShopListActivity extends Activity {
     private ShopList shopList;
     private View promptView;
     private TextView availableBudgetTextView;
+    private TextView shopListTotalTextView;
+    private TextView shopListItemQuantityTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,11 @@ public class ShopListActivity extends Activity {
         availableBudgetSmallTextView.setText(availableBudgetSmallTextView.getText().toString() + (shopList != null ? shopList.getBudget() : 0));
 
         availableBudgetTextView = (TextView) findViewById(R.id.shop_list_available_budget_value);
+        shopListTotalTextView = (TextView) findViewById(R.id.shop_list_total_value);
+        shopListItemQuantityTextView = (TextView) findViewById(R.id.shop_list_quantity_small);
         setAvailableBudget();
+        setShopListTotal();
+        setShopListItemQuantity();
 
         //changes the activity title to the name of the list
         String shopListName = this.shopList.getName();
@@ -86,7 +92,7 @@ public class ShopListActivity extends Activity {
 
     private void setAvailableBudget() {
         if(shopList == null) {
-            availableBudgetTextView.setText("0");
+            availableBudgetTextView.setText("" + 0);
             return;
         }
 
@@ -105,6 +111,40 @@ public class ShopListActivity extends Activity {
         if(availableBudget < 0) {
             availableBudgetTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         }
+    }
+
+    private void setShopListTotal() {
+        if(shopList == null) {
+            shopListTotalTextView.setText("" + 0);
+            return;
+        }
+
+        if(shopList.getElements() == null || shopList.getElements().size() == 0) {
+            shopListTotalTextView.setText("" + 0);
+            return;
+        }
+
+        double shopListTotal = 0;
+        for(ShopListElement elem : shopList.getElements()) {
+            shopListTotal += elem.getPrice();
+        }
+
+        shopListTotalTextView.setText("" + shopListTotal);
+    }
+
+    private void setShopListItemQuantity() {
+        String string =  getResources().getString(R.string.shop_list_quantity_small);
+
+        if(shopList == null) {
+            shopListItemQuantityTextView.setText(string + " " + 0);
+            return;
+        }
+
+        if(shopList.getElements() == null) {
+            shopListItemQuantityTextView.setText(string + " " + 0);
+            return;
+        }
+        shopListItemQuantityTextView.setText(string + " " + shopList.getElements().size());
     }
 
     private void addNewShopListElement() {
@@ -144,6 +184,8 @@ public class ShopListActivity extends Activity {
 
             shopList.getElements().add(shopListElement);
             setAvailableBudget();
+            setShopListTotal();
+            setShopListItemQuantity();
         }
     };
 }
