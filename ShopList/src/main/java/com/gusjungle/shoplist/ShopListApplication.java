@@ -26,7 +26,8 @@ public class ShopListApplication extends Application {
             boolean[] shopListNamesFlags = new boolean[shopListNames.length];
             String[] shopListElementNames = new String[]{"Teeth brush","Staple","Mouse","Keyboard","Deodorant","Galaxy","Android","Watch","Belt","Bread","Milk","Eggs"};
 
-            int shopLists = (int)(shopListNames.length * Math.random());
+            int shopLists = (int)((shopListNames.length - 1) * Math.random()) + 1;
+
             for(int i = 0; i < shopLists; i++) {
                 ShopList shopList = new ShopList();
 
