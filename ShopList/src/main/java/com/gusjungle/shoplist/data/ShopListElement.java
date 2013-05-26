@@ -11,6 +11,7 @@ public class ShopListElement implements Serializable {
     private double price;
     private int quantity = 1;
     private boolean taxable = true;
+    private double elementTaxRate;
 
     public String getName() {
         return name;
@@ -42,5 +43,13 @@ public class ShopListElement implements Serializable {
 
     public void setTaxable(boolean taxable) {
         this.taxable = taxable;
+    }
+
+    public double getElementTaxRate() {
+        return elementTaxRate;
+    }
+
+    public void setElementTaxRate(double elementTaxRate) {
+        this.elementTaxRate = elementTaxRate;
     }
 }

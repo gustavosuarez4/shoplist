@@ -27,7 +27,7 @@
 
         <activity android:name=".activities.ShopListActivity" >
         </activity>
-        <activity android:name=".activities.ShopListElementDetailActivity" >
+        <activity android:name=".activities.ShopListElementActivity" >
         </activity>
 
 

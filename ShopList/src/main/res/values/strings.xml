@@ -21,5 +21,11 @@
     <string name="shop_list_available_budget_small">Budget:</string>
     <string name="shop_list_total">Total</string>
     <string name="shop_list_quantity_small">Items:</string>
+    <string name="shop_list_element_taxable">Taxable</string>
+    <string name="shop_list_element_total_amount">Total</string>
+    <string name="shop_list_element_tax_amount">Tax</string>
+    <string name="shop_list_element_quantity">Quantity</string>
+    <string name="shop_list_element_price">Price</string>
+    <string name="shop_list_element_image_content_description">shopListElementName</string>
 
 </resources>

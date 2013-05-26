@@ -13,6 +13,7 @@ public class ShopList implements Serializable {
     private String name;
     private double budget;
     private List<ShopListElement> elements = new ArrayList<ShopListElement>();
+    private double taxRate = 0.08;
 
     public int getShopListId() {
         return shopListId;
@@ -44,6 +45,14 @@ public class ShopList implements Serializable {
 
     public void setElements(List<ShopListElement> elements) {
         this.elements = elements;
+    }
+
+    public double getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(double taxRate) {
+        this.taxRate = taxRate;
     }
 
     @Override

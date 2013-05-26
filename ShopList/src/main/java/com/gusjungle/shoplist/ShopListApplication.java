@@ -51,8 +51,8 @@ public class ShopListApplication extends Application {
                     ShopListElement shopListElement = new ShopListElement();
 
                     shopListElement.setPrice(Math.round((shopList.getBudget() * 100 / 5 ) * Math.random())/100);
-                    shopListElement.setTaxable(Math.random() < 0.05);
-                    shopListElement.setQuantity((int)(Math.random() > 0.15 ? 1 : 5 * Math.random()));
+                    shopListElement.setTaxable(Math.random() > 0.05);
+                    shopListElement.setQuantity((int)(Math.random() > 0.15 ? 1 : 1 + (5 * Math.random())));
                     shopListElement.setName(shopListElementNames[(int)(Math.random() * shopListElementNames.length)]);
 
                     shopListElementList.add(shopListElement);

@@ -4,10 +4,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,8 +38,7 @@ public class ShopListActivity extends Activity {
 
         ShopListApplicationData shopListApplicationData = ShopListApplication.getShopListApplicationData();
 
-        Bundle extras = getIntent().getExtras();
-        shopList = shopListApplicationData.getShopLists().get(extras.getInt("ShopListIndex"));
+        shopList = shopListApplicationData.getShopLists().get(NavigationUtils.getCurrentShopListIndex());
 
         //sets the layout
         setContentView(R.layout.activity_shop_list);
@@ -62,9 +63,10 @@ public class ShopListActivity extends Activity {
         setTitle(shopListName.toUpperCase().charAt(0) + shopListName.substring(1));
 
         ListView shopListsListView = (ListView) findViewById(R.id.shopList_list_view);
-        //shopListsListView.setOnItemClickListener(shopListsListViewOnItemClickListener);
+        shopListsListView.setOnItemClickListener(shopListsListViewOnItemClickListener);
 
         ShopListAdapter shopListAdapter = (ShopListAdapter) shopListsListView.getAdapter();
+
         if(shopListAdapter == null) {
             shopListAdapter = new ShopListAdapter(this, R.layout.view_shop_list_element_list, shopList.getElements());
             shopListsListView.setAdapter(shopListAdapter);
@@ -81,7 +83,7 @@ public class ShopListActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavigationUtils.goHome(this, MainActivity.class);
+                NavigationUtils.goBack(this, MainActivity.class);
                 break;
             case R.id.action_new_shopListElement:
                 addNewShopListElement();
@@ -148,7 +150,6 @@ public class ShopListActivity extends Activity {
     }
 
     private void addNewShopListElement() {
-
         promptView = getLayoutInflater().inflate(R.layout.prompt_add_new_shop_list_element, null);
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -164,7 +165,6 @@ public class ShopListActivity extends Activity {
     private DialogInterface.OnClickListener AddNewShopListElementListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-
             EditText newShopListElementNameTextView = (EditText) promptView.findViewById(R.id.new_shop_list_element_name);
             EditText newShopListElementPriceTextView = (EditText) promptView.findViewById(R.id.new_shop_list_element_price);
 
@@ -186,6 +186,17 @@ public class ShopListActivity extends Activity {
             setAvailableBudget();
             setShopListTotal();
             setShopListItemQuantity();
+        }
+    };
+
+    private AdapterView.OnItemClickListener shopListsListViewOnItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Intent intent = new Intent(ShopListActivity.this, ShopListElementActivity.class);
+
+            NavigationUtils.setCurrentShopListElementIndex(i);
+
+            startActivity(intent);
         }
     };
 }

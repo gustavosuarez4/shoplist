@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
         ShopListApplicationData shopListApplicationData = ShopListApplication.getShopListApplicationData();
 
         ListView shopListsListView = (ListView) findViewById(R.id.shopLists_list_view);
-        shopListsListView.setOnItemLongClickListener(shopListsListViewOnItemLongClickListener);
+        //shopListsListView.setOnItemLongClickListener(shopListsListViewOnItemLongClickListener);
         shopListsListView.setOnItemClickListener(shopListsListViewOnItemClickListener);
 
         ShopListsListAdapter shopListsListAdapter = (ShopListsListAdapter) shopListsListView.getAdapter();
@@ -111,21 +111,22 @@ public class MainActivity extends Activity {
         }
     };
 
-    private AdapterView.OnItemLongClickListener shopListsListViewOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent = new Intent(MainActivity.this, ShopListElementDetailActivity.class);
-            startActivity(intent);
-            return false;
-        }
-    };
+//    private AdapterView.OnItemLongClickListener shopListsListViewOnItemLongClickListener = new AdapterView.OnItemLongClickListener() {
+//        @Override
+//        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//            Intent intent = new Intent(MainActivity.this, ShopListElementActivity.class);
+//            startActivity(intent);
+//            return false;
+//        }
+//    };
 
     private AdapterView.OnItemClickListener shopListsListViewOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
 
-            intent.putExtra("ShopListIndex", i);
+            NavigationUtils.setCurrentShopListIndex(i);
+
             startActivity(intent);
         }
     };
