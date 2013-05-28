@@ -24,9 +24,11 @@
     <string name="new_shop_list_element_quantity_hint">Quantity</string>
     <string name="shop_list_available_budget">Available Budget</string>
     <string name="shop_list_available_budget_small">Budget:</string>
+    <string name="shop_list_element_cancel_button">Cancel</string>
     <string name="shop_list_element_image_content_description">shopListElementName</string>
     <string name="shop_list_element_price">Price</string>
     <string name="shop_list_element_quantity">Quantity</string>
+    <string name="shop_list_element_save_button">Save</string>
     <string name="shop_list_element_tax_amount">Tax</string>
     <string name="shop_list_element_taxable">Taxable</string>
     <string name="shop_list_element_total_amount">Total</string>

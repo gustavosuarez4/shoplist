@@ -27,5 +27,7 @@
     <string name="shop_list_element_quantity">Quantity</string>
     <string name="shop_list_element_price">Price</string>
     <string name="shop_list_element_image_content_description">shopListElementName</string>
+    <string name="shop_list_element_cancel_button">Cancel</string>
+    <string name="shop_list_element_save_button">Save</string>
 
 </resources>

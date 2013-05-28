@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import com.gusjungle.shoplist.R;
@@ -18,6 +20,17 @@ import com.gusjungle.shoplist.utils.NavigationUtils;
  */
 public class ShopListElementActivity extends Activity {
 
+    private ShopList shopList;
+    private ShopListElement shopListElement;
+
+    private CheckBox taxableCheckBox;
+    private EditText shopListElementPriceEditText;
+    private EditText shopListElementQuantityEditText;
+
+
+    private EditText shopListElementTaxEditText;
+    private EditText shopListElementTotalAmountEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,30 +38,34 @@ public class ShopListElementActivity extends Activity {
 
         ShopListApplicationData shopListApplicationData = ShopListApplication.getShopListApplicationData();
 
-        ShopList shopList = shopListApplicationData.getShopLists().get(NavigationUtils.getCurrentShopListIndex());
-        ShopListElement shopListElement = shopList.getElements().get(NavigationUtils.getCurrentShopListElementIndex());
+        shopList = shopListApplicationData.getShopLists().get(NavigationUtils.getCurrentShopListIndex());
+        shopListElement = shopList.getElements().get(NavigationUtils.getCurrentShopListElementIndex());
 
         String shopListElementName = shopListElement.getName();
         setTitle(shopListElementName.toUpperCase().charAt(0) + shopListElementName.substring(1));
 
-        EditText shopListElementPriceEditText = (EditText) findViewById(R.id.shop_list_element_price);
+        shopListElementPriceEditText = (EditText) findViewById(R.id.shop_list_element_price);
         shopListElementPriceEditText.setText("" + shopListElement.getPrice());
 
-        EditText shopListElementQuantityEditText = (EditText) findViewById(R.id.shop_list_element_quantity);
+        shopListElementQuantityEditText = (EditText) findViewById(R.id.shop_list_element_quantity);
         shopListElementQuantityEditText.setText("" + shopListElement.getQuantity());
 
-        double taxAmount = shopListElement.isTaxable() ? shopListElement.getPrice() * shopList.getTaxRate() : 0;
-
-        EditText shopListElementTaxEditText = (EditText) findViewById(R.id.shop_list_element_tax_amount);
-        shopListElementTaxEditText.setText("" + taxAmount);
+        shopListElementTaxEditText = (EditText) findViewById(R.id.shop_list_element_tax_amount);
+        shopListElementTaxEditText.setText("" + getTaxAmount());
         shopListElementTaxEditText.setEnabled(false);
 
-        EditText shopListElementTotalAmountEditText = (EditText) findViewById(R.id.shop_list_element_total_amount);
-        shopListElementTotalAmountEditText.setText("" + (shopListElement.getPrice() + taxAmount));
+        shopListElementTotalAmountEditText = (EditText) findViewById(R.id.shop_list_element_total_amount);
+        shopListElementTotalAmountEditText.setText("" + getTotalAmount());
         shopListElementTotalAmountEditText.setEnabled(false);
 
-        CheckBox taxableCheckBox = (CheckBox) findViewById(R.id.shop_list_element_taxable);
+        taxableCheckBox = (CheckBox) findViewById(R.id.shop_list_element_taxable);
         taxableCheckBox.setChecked(shopListElement.isTaxable());
+
+        Button saveButton = (Button) findViewById(R.id.shop_list_element_save_button);
+        saveButton.setOnClickListener(saveShopListElementButtonOnClickListener);
+
+        Button cancelButton = (Button) findViewById(R.id.shop_list_element_cancel_button);
+        cancelButton.setOnClickListener(cancelShopListElementButtonOnClickListener);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -64,4 +81,41 @@ public class ShopListElementActivity extends Activity {
         return true;
     }
 
+    private View.OnClickListener saveShopListElementButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            try {
+                shopListElement.setPrice(Double.parseDouble(shopListElementPriceEditText.getText().toString()));
+            } catch (Exception e) {}
+            try {
+                shopListElement.setQuantity(Integer.parseInt(shopListElementQuantityEditText.getText().toString()));
+            } catch (Exception e) {}
+            try {
+                shopListElement.setTaxable(taxableCheckBox.isChecked());
+            } catch (Exception e) {}
+
+            //shopListElementTaxEditText.setText("" + getTaxAmount());
+            //shopListElementTotalAmountEditText.setText("" + getTotalAmount());
+
+            NavigationUtils.goBack(ShopListElementActivity.this, ShopListActivity.class);
+        }
+    };
+
+    private View.OnClickListener cancelShopListElementButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            NavigationUtils.goBack(ShopListElementActivity.this, ShopListActivity.class);
+        }
+    };
+
+    // TODO: include custom tax rate (By Element)
+    private double getTaxAmount() {
+        return shopListElement.isTaxable() ? shopListElement.getPrice() * shopList.getTaxRate() : 0;
+    }
+
+    // TODO: improve efficiency
+    private double getTotalAmount() {
+        return shopListElement.getPrice() + getTaxAmount();
+    }
 }
