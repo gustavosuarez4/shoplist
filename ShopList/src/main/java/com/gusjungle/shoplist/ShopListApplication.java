@@ -6,7 +6,9 @@ import com.gusjungle.shoplist.data.ShopList;
 import com.gusjungle.shoplist.data.ShopListApplicationData;
 import com.gusjungle.shoplist.data.ShopListElement;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Gustavo on 5/19/13.
@@ -14,6 +16,7 @@ import java.util.List;
 public class ShopListApplication extends Application {
 
     private static ShopListApplicationData shopListApplicationData = new ShopListApplicationData();
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
 
     @Override
     public void onCreate() {
@@ -68,5 +71,13 @@ public class ShopListApplication extends Application {
 
     public static void setShopListApplicationData(ShopListApplicationData shopListApplicationData) {
         ShopListApplication.shopListApplicationData = shopListApplicationData;
+    }
+
+    public static NumberFormat getCurrencyFormatter() {
+        return currencyFormatter;
+    }
+
+    public static void setCurrencyFormatter(NumberFormat currencyFormatter) {
+        ShopListApplication.currencyFormatter = currencyFormatter;
     }
 }

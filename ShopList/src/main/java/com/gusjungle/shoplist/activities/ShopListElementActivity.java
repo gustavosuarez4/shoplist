@@ -2,6 +2,7 @@ package com.gusjungle.shoplist.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.gusjungle.shoplist.data.ShopListApplicationData;
 import com.gusjungle.shoplist.data.ShopListElement;
 import com.gusjungle.shoplist.utils.NavigationUtils;
 
+import java.text.NumberFormat;
+
 /**
  * Created by Gustavo on 5/18/13.
  */
@@ -27,12 +30,14 @@ public class ShopListElementActivity extends Activity {
     private EditText shopListElementPriceEditText;
     private EditText shopListElementQuantityEditText;
 
-
     private EditText shopListElementTaxEditText;
     private EditText shopListElementTotalAmountEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        NumberFormat currencyFormatter = ShopListApplication.getCurrencyFormatter();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list_element);
 
@@ -45,17 +50,17 @@ public class ShopListElementActivity extends Activity {
         setTitle(shopListElementName.toUpperCase().charAt(0) + shopListElementName.substring(1));
 
         shopListElementPriceEditText = (EditText) findViewById(R.id.shop_list_element_price);
-        shopListElementPriceEditText.setText("" + shopListElement.getPrice());
+        shopListElementPriceEditText.setText(currencyFormatter.format(shopListElement.getPrice()));
 
         shopListElementQuantityEditText = (EditText) findViewById(R.id.shop_list_element_quantity);
         shopListElementQuantityEditText.setText("" + shopListElement.getQuantity());
 
         shopListElementTaxEditText = (EditText) findViewById(R.id.shop_list_element_tax_amount);
-        shopListElementTaxEditText.setText("" + getTaxAmount());
+        shopListElementTaxEditText.setText(currencyFormatter.format(getTaxAmount()));
         shopListElementTaxEditText.setEnabled(false);
 
         shopListElementTotalAmountEditText = (EditText) findViewById(R.id.shop_list_element_total_amount);
-        shopListElementTotalAmountEditText.setText("" + getTotalAmount());
+        shopListElementTotalAmountEditText.setText(currencyFormatter.format(getTotalAmount()));
         shopListElementTotalAmountEditText.setEnabled(false);
 
         taxableCheckBox = (CheckBox) findViewById(R.id.shop_list_element_taxable);
@@ -85,8 +90,10 @@ public class ShopListElementActivity extends Activity {
         @Override
         public void onClick(View view) {
 
+
             try {
-                shopListElement.setPrice(Double.parseDouble(shopListElementPriceEditText.getText().toString()));
+                Number elementPrice = ShopListApplication.getCurrencyFormatter().parse(shopListElementPriceEditText.getText().toString());
+                shopListElement.setPrice(elementPrice.doubleValue());
             } catch (Exception e) {}
             try {
                 shopListElement.setQuantity(Integer.parseInt(shopListElementQuantityEditText.getText().toString()));

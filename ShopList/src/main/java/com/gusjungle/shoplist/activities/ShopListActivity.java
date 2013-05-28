@@ -21,6 +21,8 @@ import com.gusjungle.shoplist.data.ShopListApplicationData;
 import com.gusjungle.shoplist.data.ShopListElement;
 import com.gusjungle.shoplist.utils.NavigationUtils;
 
+import java.text.NumberFormat;
+
 /**
  * @author Gustavo on 5/19/13 9:12 PM
  */
@@ -31,6 +33,7 @@ public class ShopListActivity extends Activity {
     private TextView availableBudgetTextView;
     private TextView shopListTotalTextView;
     private TextView shopListItemQuantityTextView;
+    private NumberFormat currencyFormatter = ShopListApplication.getCurrencyFormatter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class ShopListActivity extends Activity {
 
         //sets budget on small header text
         TextView availableBudgetSmallTextView = (TextView) findViewById(R.id.shop_list_available_budget_small);
-        availableBudgetSmallTextView.setText(availableBudgetSmallTextView.getText().toString() + (shopList != null ? shopList.getBudget() : 0));
+        availableBudgetSmallTextView.setText(availableBudgetSmallTextView.getText().toString() + currencyFormatter.format(shopList != null ? shopList.getBudget() : 0));
 
         availableBudgetTextView = (TextView) findViewById(R.id.shop_list_available_budget_value);
         shopListTotalTextView = (TextView) findViewById(R.id.shop_list_total_value);
@@ -94,12 +97,12 @@ public class ShopListActivity extends Activity {
 
     private void setAvailableBudget() {
         if(shopList == null) {
-            availableBudgetTextView.setText("" + 0);
+            availableBudgetTextView.setText(currencyFormatter.format(0));
             return;
         }
 
         if(shopList.getElements() == null || shopList.getElements().size() == 0) {
-            availableBudgetTextView.setText("" + shopList.getBudget());
+            availableBudgetTextView.setText(currencyFormatter.format(shopList.getBudget()));
             return;
         }
 
@@ -108,7 +111,7 @@ public class ShopListActivity extends Activity {
             availableBudget -= elem.getPrice();
         }
 
-        availableBudgetTextView.setText("" + availableBudget);
+        availableBudgetTextView.setText(currencyFormatter.format(availableBudget));
 
         if(availableBudget < 0) {
             availableBudgetTextView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
@@ -117,12 +120,12 @@ public class ShopListActivity extends Activity {
 
     private void setShopListTotal() {
         if(shopList == null) {
-            shopListTotalTextView.setText("" + 0);
+            shopListTotalTextView.setText(currencyFormatter.format(0));
             return;
         }
 
         if(shopList.getElements() == null || shopList.getElements().size() == 0) {
-            shopListTotalTextView.setText("" + 0);
+            shopListTotalTextView.setText(currencyFormatter.format(0));
             return;
         }
 
@@ -131,7 +134,7 @@ public class ShopListActivity extends Activity {
             shopListTotal += elem.getPrice();
         }
 
-        shopListTotalTextView.setText("" + shopListTotal);
+        shopListTotalTextView.setText(currencyFormatter.format(shopListTotal));
     }
 
     private void setShopListItemQuantity() {

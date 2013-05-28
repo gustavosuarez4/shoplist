@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.gusjungle.shoplist.R;
+import com.gusjungle.shoplist.ShopListApplication;
 import com.gusjungle.shoplist.data.ShopListElement;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -49,10 +51,12 @@ public class ShopListAdapter extends ArrayAdapter<ShopListElement> {
             holder = (ShopListHolder)row.getTag();
         }
 
+        NumberFormat currencyFormatter = ShopListApplication.getCurrencyFormatter();
+
         ShopListElement shopListElement = data.get(position);
 
         holder.shopListElementName.setText(shopListElement.getName());
-        holder.shopListElementPrice.setText("" + shopListElement.getPrice());
+        holder.shopListElementPrice.setText(currencyFormatter.format(shopListElement.getPrice()));
 
         return row;
     }
